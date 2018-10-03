@@ -100,6 +100,11 @@ namespace Google {
       }
     }
 
+    public static bool IsInitialized()
+    {
+      return theInstance != null;
+    }
+
     internal GoogleSignIn(GoogleSignInImpl impl) {
       this.impl = impl;
     }
