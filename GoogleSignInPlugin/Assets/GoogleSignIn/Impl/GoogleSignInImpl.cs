@@ -62,6 +62,7 @@ namespace Google.Impl {
     /// the requested elements.
     /// </remarks>
     public Future<GoogleSignInUser> SignIn() {
+      UnityEngine.Debug.Log("GoogleSignInImpl::SignIn() - Entering");
       IntPtr nativeFuture = GoogleSignIn_SignIn(SelfPtr());
       return new Future<GoogleSignInUser>(new NativeFuture(nativeFuture));
     }

@@ -34,12 +34,14 @@ namespace Google.Impl {
 
     public bool Pending {
       get {
+        UnityEngine.Debug.Log("NativeFuture::Pending()");
         return GoogleSignInImpl.GoogleSignIn_Pending(SelfPtr());
       }
     }
 
     public GoogleSignInUser Result {
       get {
+        UnityEngine.Debug.Log("NativeFuture::Result()");
         IntPtr ptr = GoogleSignInImpl.GoogleSignIn_Result(SelfPtr());
         if (ptr != IntPtr.Zero) {
           GoogleSignInUser user = new GoogleSignInUser();
@@ -94,6 +96,7 @@ namespace Google.Impl {
     /// <value>The status.</value>
     public GoogleSignInStatusCode Status {
       get {
+        UnityEngine.Debug.Log("NativeFuture::Status()");
         return (GoogleSignInStatusCode)GoogleSignInImpl.GoogleSignIn_Status(
           SelfPtr());
       }

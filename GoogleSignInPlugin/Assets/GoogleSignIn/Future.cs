@@ -49,7 +49,9 @@ namespace Google {
     /// <see cref="T:Google.Future`1"/> is pending.
     /// </summary>
     /// <value><c>true</c> if pending; otherwise, <c>false</c>.</value>
-    public bool Pending { get { return apiImpl.Pending; } }
+    public bool Pending { get {
+      Debug.Log("Future::Pending - " + apiImpl.Pending);
+      return apiImpl.Pending; } }
 
     /// <summary>
     /// Gets the status.
@@ -70,7 +72,9 @@ namespace Google {
     /// <returns>The for result.</returns>
     /// <param name="tcs">Tcs.</param>
     internal IEnumerator WaitForResult(TaskCompletionSource<T> tcs) {
+      Debug.Log("Future::WaitForResult() - Entering and starting wait (yield return)");
       yield return new WaitUntil(() => !Pending);
+      Debug.Log("Future::WaitForResult() - Finished wait!!!");
       if (Status == GoogleSignInStatusCode.Canceled) {
         tcs.SetCanceled();
       } else if (Status == GoogleSignInStatusCode.Success ||
