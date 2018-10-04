@@ -163,6 +163,17 @@ class GoogleSignInFuture : public Future<GoogleSignIn::SignInResult> {
   }
   virtual GoogleSignIn::SignInResult *Result() const { return result_; }
   virtual bool Pending() const {
+    if(result_ == nullptr)
+    {
+      __android_log_print(ANDROID_LOG_INFO, TAG, "Pending() - Result is null");
+    }
+
+    else
+    {
+       __android_log_print(ANDROID_LOG_INFO, TAG, "Pending() - Status code %i",
+                          result_->StatusCode);
+    }
+
     return (!result_) || result_->StatusCode ==
                              GoogleSignIn::StatusCode::kStatusCodeUninitialized;
   }
@@ -231,6 +242,8 @@ void GoogleSignIn::GoogleSignInImpl::Configure(
 
   delete current_result_;
   current_result_ = new GoogleSignInFuture();
+
+  __android_log_print(ANDROID_LOG_INFO, TAG, "Configure current_result_:%p", current_result_);
 
   CallConfigure();
 }
@@ -353,9 +366,10 @@ void GoogleSignIn::GoogleSignInImpl::NativeOnAuthResult(
     rc->User = GoogleSignInUserImpl::UserFromAccount(user);
 
     if (rc->User) {
-      __android_log_print(ANDROID_LOG_INFO, TAG, "User Display Name is  %s",
-                          rc->User->GetDisplayName());
+      __android_log_print(ANDROID_LOG_INFO, TAG, "User Display Name is  %s future:%p",
+                          rc->User->GetDisplayName(), future);
     }
+
     future->SetResult(rc);
   }
 }
