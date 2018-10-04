@@ -28,7 +28,7 @@ namespace Google.Impl {
 #endif
 
     internal GoogleSignInImpl(GoogleSignInConfiguration configuration)
-          : base(GoogleSignIn_Create(GetPlayerActivity())) {
+          : base(GoogleSignIn_Create(GetPlayerActivity())) { //GoogleSignInHolder* (C++ structure)
 
       if (configuration != null) {
         List<string> scopes = new List<string>();
@@ -62,7 +62,8 @@ namespace Google.Impl {
     /// the requested elements.
     /// </remarks>
     public Future<GoogleSignInUser> SignIn() {
-      IntPtr nativeFuture = GoogleSignIn_SignIn(SelfPtr());
+      IntPtr nativeFuture = GoogleSignIn_SignIn(SelfPtr());//c++ GoogleSignInFuture* which wraps googlesignin::Future<GoogleSignIn::SignInResult>
+      UnityEngine.Debug.Log("GoogleSignInImpl::SignIn() - nativeFuture " + nativeFuture);//wrapper around waht we want 
       return new Future<GoogleSignInUser>(new NativeFuture(nativeFuture));
     }
 
@@ -103,7 +104,7 @@ namespace Google.Impl {
     /// <returns>The pointer to the instance.</returns>
     /// <param name="data">Data used in creating the instance.</param>
     [DllImport(DllName)]
-    static extern IntPtr GoogleSignIn_Create(IntPtr data);
+    static extern IntPtr GoogleSignIn_Create(IntPtr data); //c++ return new GoogleSignInHolder(new googlesignin::GoogleSignIn(activity));
 
     [DllImport(DllName)]
     static extern void GoogleSignIn_EnableDebugLogging(HandleRef self, bool flag);

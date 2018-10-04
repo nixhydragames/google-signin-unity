@@ -88,6 +88,7 @@ struct GoogleSignInUser {
 };
 
 GoogleSignIn_t GoogleSignIn_Create(jobject activity) {
+  __android_log_print(ANDROID_LOG_INFO, "GoogleSignIn_Create() cs->c++");
   return new GoogleSignInHolder(new googlesignin::GoogleSignIn(activity));
 }
 
@@ -127,6 +128,8 @@ void GoogleSignIn_Configure(GoogleSignIn_t self, bool useGameSignIn,
 }
 
 GoogleSignInFuture_t GoogleSignIn_SignIn(GoogleSignIn_t self) {
+  __android_log_print(ANDROID_LOG_INFO, "GoogleSignIn_SignIn() cs->c++");
+  //wraps Future<GoogleSignIn::SignInResult>
   return new GoogleSignInFuture(&self->wrapped_->SignIn());
 }
 
@@ -141,6 +144,7 @@ void GoogleSignIn_Disconnect(GoogleSignIn_t self) {
 }
 
 bool GoogleSignIn_Pending(GoogleSignInFuture_t self) {
+   __android_log_print(ANDROID_LOG_INFO, "GoogleSignIn_Pending() cs->c++");//self is a wrapper arround Future<signinresult>
   return self->wrapped_->Pending();
 }
 

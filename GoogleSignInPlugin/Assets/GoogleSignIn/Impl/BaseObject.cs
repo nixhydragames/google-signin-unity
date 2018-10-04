@@ -30,6 +30,7 @@ namespace Google.Impl {
     private static HandleRef nullSelf = new HandleRef();
 
     public BaseObject(IntPtr intPtr) {
+      Debug.Log("BaseObject() ctor " + intPtr);
       selfHandleRef = new HandleRef(this, intPtr);
     }
 
@@ -42,6 +43,7 @@ namespace Google.Impl {
     }
 
     public virtual void Dispose() {
+      Debug.Log("BaseObject::Dispose() " + intPtr);
       selfHandleRef = nullSelf;
     }
 

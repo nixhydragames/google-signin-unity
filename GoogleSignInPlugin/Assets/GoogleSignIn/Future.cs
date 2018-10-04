@@ -49,7 +49,7 @@ namespace Google {
     /// <see cref="T:Google.Future`1"/> is pending.
     /// </summary>
     /// <value><c>true</c> if pending; otherwise, <c>false</c>.</value>
-    public bool Pending { get { return apiImpl.Pending; } }
+    public bool Pending { get { return apiImpl.Pending; } } //NativeFuture.Pending
 
     /// <summary>
     /// Gets the status.

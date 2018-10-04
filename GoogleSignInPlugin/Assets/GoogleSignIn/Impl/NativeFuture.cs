@@ -28,13 +28,14 @@ namespace Google.Impl {
     }
 
     public override void Dispose() {
+      UnityEngine.Debug.Log("NativeFuture::Dispose()");
       GoogleSignInImpl.GoogleSignIn_DisposeFuture(SelfPtr());
       base.Dispose();
     }
 
     public bool Pending {
       get {
-        return GoogleSignInImpl.GoogleSignIn_Pending(SelfPtr());
+        return GoogleSignInImpl.GoogleSignIn_Pending(SelfPtr());//wraps googlesignin::Future<GoogleSignIn::SignInResult> (cs -> cpp)
       }
     }
 
