@@ -35,7 +35,12 @@ namespace Google.Impl {
 
     public bool Pending {
       get {
-        return GoogleSignInImpl.GoogleSignIn_Pending(SelfPtr());//wraps googlesignin::Future<GoogleSignIn::SignInResult> (cs -> cpp)
+        bool resX2  = GoogleSignInImpl.GoogleSignIn_Pending(SelfPtr());
+        //pointer to wrapper around future
+        UnityEngine.Debug.Log("NativeFuture::Pending()I - cs->cpp:" + resX2);
+         UnityEngine.Debug.Log("NativeFuture::Pending() - cs->cpp(int):" + Convert.ToInt32(resX2));
+         return resX2;
+        //return GoogleSignInImpl.GoogleSignIn_Pending(SelfPtr());//wraps googlesignin::Future<GoogleSignIn::SignInResult> (cs -> cpp)
       }
     }
 

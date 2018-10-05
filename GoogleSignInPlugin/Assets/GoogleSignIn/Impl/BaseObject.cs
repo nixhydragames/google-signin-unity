@@ -43,7 +43,7 @@ namespace Google.Impl {
     }
 
     public virtual void Dispose() {
-      Debug.Log("BaseObject::Dispose() " + intPtr);
+      Debug.Log("BaseObject::Dispose() " + selfHandleRef.Handle);
       selfHandleRef = nullSelf;
     }
 

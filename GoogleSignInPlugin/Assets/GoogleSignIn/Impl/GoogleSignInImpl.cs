@@ -63,7 +63,7 @@ namespace Google.Impl {
     /// </remarks>
     public Future<GoogleSignInUser> SignIn() {
       IntPtr nativeFuture = GoogleSignIn_SignIn(SelfPtr());//c++ GoogleSignInFuture* which wraps googlesignin::Future<GoogleSignIn::SignInResult>
-      UnityEngine.Debug.Log("GoogleSignInImpl::SignIn() - nativeFuture " + nativeFuture);//wrapper around waht we want 
+      UnityEngine.Debug.Log("GoogleSignInImpl::SignIn() - nativeFuture " + nativeFuture + " SelfHandle(GSIH)" + SelfPtr().Handle);//wrapper around waht we want
       return new Future<GoogleSignInUser>(new NativeFuture(nativeFuture));
     }
 

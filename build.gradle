@@ -68,7 +68,7 @@ project.ext {
         git_exe = 'git'
     }
 
-    pluginVersion = "1.0.4.0"
+    pluginVersion = "1.0.4.13"
     currentPluginBasename = 'google-signin-plugin'
     currentPluginName = (currentPluginBasename + '-' + pluginVersion +
                                      '.unitypackage')

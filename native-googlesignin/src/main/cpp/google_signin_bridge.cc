@@ -88,8 +88,12 @@ struct GoogleSignInUser {
 };
 
 GoogleSignIn_t GoogleSignIn_Create(jobject activity) {
-  __android_log_print(ANDROID_LOG_INFO, "GoogleSignIn_Create() cs->c++");
-  return new GoogleSignInHolder(new googlesignin::GoogleSignIn(activity));
+ // __android_log_print(ANDROID_LOG_INFO, "native-googlesignin", "GoogleSignIn_Create() cs->c++");
+  googlesignin::GoogleSignIn* gsi = new googlesignin::GoogleSignIn(activity);
+  GoogleSignInHolder* gsih = new GoogleSignInHolder(gsi);
+  __android_log_print(ANDROID_LOG_INFO, "native-googlesignin", "GoogleSignIn_Create() cs->c++ gsi:%p gsih:%p", gsi, gsih);
+  return gsih;
+  //return new GoogleSignInHolder(new googlesignin::GoogleSignIn(activity));
 }
 
 void GoogleSignIn_Dispose(GoogleSignIn_t self) { delete self; }
@@ -128,9 +132,13 @@ void GoogleSignIn_Configure(GoogleSignIn_t self, bool useGameSignIn,
 }
 
 GoogleSignInFuture_t GoogleSignIn_SignIn(GoogleSignIn_t self) {
-  __android_log_print(ANDROID_LOG_INFO, "GoogleSignIn_SignIn() cs->c++");
-  //wraps Future<GoogleSignIn::SignInResult>
-  return new GoogleSignInFuture(&self->wrapped_->SignIn());
+  googlesignin::Future<googlesignin::GoogleSignIn::SignInResult>& rexx = self->wrapped_->SignIn();
+  GoogleSignInFuture_t toreturn = new GoogleSignInFuture(&rexx);
+  //GoogleSignInFuture_t toreturn = new GoogleSignInFuture(&self->wrapped_->SignIn());
+  __android_log_print(ANDROID_LOG_INFO, "native-googlesignin", "GoogleSignIn_SignIn() cs->c++ self(gsih):%p wrapped(gsi):%p futurewraped:%p future:%p", self, &self->wrapped_, toreturn, &rexx);
+  return toreturn;
+  //wraps pointer to Future<GoogleSignIn::SignInResult>
+  //return new GoogleSignInFuture(&self->wrapped_->SignIn());
 }
 
 GoogleSignInFuture_t GoogleSignIn_SignInSilently(GoogleSignIn_t self) {
@@ -143,9 +151,15 @@ void GoogleSignIn_Disconnect(GoogleSignIn_t self) {
   self->wrapped_->Disconnect();
 }
 
-bool GoogleSignIn_Pending(GoogleSignInFuture_t self) {
-   __android_log_print(ANDROID_LOG_INFO, "GoogleSignIn_Pending() cs->c++");//self is a wrapper arround Future<signinresult>
-  return self->wrapped_->Pending();
+bool GoogleSignIn_Pending(GoogleSignInFuture_t self) {//pointer to a wrapper for a future
+  bool pendres = self->wrapped_->Pending();
+   //__android_log_print(ANDROID_LOG_INFO, "native-googlesignin", "GoogleSignIn_Pending() cs->c++ self:%p wrapped:%p pend:%i raw:%p",self, &self->wrapped_, pendres, self->wrapped_.get());//self is a wrapper arround Future<signinresult>
+  //  void* r1 = self;
+  //  void* r2 = &self->wrapped_;
+  //  void* r3 = self->wrapped_.get();
+  __android_log_print(ANDROID_LOG_INFO, "native-googlesignin", "GoogleSignIn_Pending()");
+   return pendres;
+  //return self->wrapped_->Pending();
 }
 
 int GoogleSignIn_Status(GoogleSignInFuture_t self) {
