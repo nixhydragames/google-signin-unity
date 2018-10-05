@@ -150,18 +150,62 @@ void GoogleSignIn_Signout(GoogleSignIn_t self) { self->wrapped_->SignOut(); }
 void GoogleSignIn_Disconnect(GoogleSignIn_t self) {
   self->wrapped_->Disconnect();
 }
-
+// int DoNothing(int z);
 bool GoogleSignIn_Pending(GoogleSignInFuture_t self) {//pointer to a wrapper for a future
-  bool pendres = self->wrapped_->Pending();
-   //__android_log_print(ANDROID_LOG_INFO, "native-googlesignin", "GoogleSignIn_Pending() cs->c++ self:%p wrapped:%p pend:%i raw:%p",self, &self->wrapped_, pendres, self->wrapped_.get());//self is a wrapper arround Future<signinresult>
-  //  void* r1 = self;
-  //  void* r2 = &self->wrapped_;
-  //  void* r3 = self->wrapped_.get();
-  __android_log_print(ANDROID_LOG_INFO, "native-googlesignin", "GoogleSignIn_Pending()");
+    bool pendres = self->wrapped_->Pending();
+  //  bool pendres = true;
+  //  //__android_log_print(ANDROID_LOG_INFO, "native-googlesignin", "GoogleSignIn_Pending() cs->c++ self:%p wrapped:%p pend:%i raw:%p",self, &self->wrapped_, pendres, self->wrapped_.get());//self is a wrapper arround Future<signinresult>
+    // void* r1 = self;
+    // void* r2 = nullptr;
+    // void* r3 = nullptr;
+
+    // if(r1 != nullptr)
+    // {
+    //   r2 = &self->wrapped_;
+    //   if(r2 != nullptr)
+    //   {
+    //     r3 = self->wrapped_.get();
+    //   }
+    // }
+  // // __android_log_print(ANDROID_LOG_INFO, "native-googlesignin", "GoogleSignIn_Pending()");
+  // //  return pendres;
+  // int xxx = 3;
+  // if(r1 == nullptr || r2 == nullptr || r3 == nullptr)
+  // {
+  //   // xxx=5;
+  //   __android_log_print(ANDROID_LOG_INFO, "native-googlesignin", "GoogleSignIn_Pending() - SOMETHING IS NULL");
+  //   __android_log_print(ANDROID_LOG_INFO, "native-googlesignin", "GoogleSignIn_Pending() cs->c++ self:%p wrapped:%p pend:%i raw:%p",r1, r2, pendres, r3);//self is a wrapper arround Future<signinresult>
+  // }
+  // else
+  // {
+  //   pendres = self->wrapped_->Pending();
+  //   __android_log_print(ANDROID_LOG_INFO, "native-googlesignin", "GoogleSignIn_Pending() cs->c++ self:%p wrapped:%p pend:%i raw:%p",self, &self->wrapped_, pendres, self->wrapped_.get());
+  // }
+
+  // int res = DoNothing(xxx);
+  // if(res > 36)
+  // {
+  //   __android_log_print(ANDROID_LOG_INFO, "native-googlesignin", "GoogleSignIn_Pending() - res >36");
+  // }
+  // if(!pendres)
+  // {
+  //   int s = GoogleSignIn_Status(self);
+  //   if(s || self != nullptr)
+  //   {
+  //     pendres = false;
+  //   }
+  // }
    return pendres;
-  //return self->wrapped_->Pending();
+  // return self->wrapped_->Pending();
 }
 
+// int DoNothing(int z)
+// {
+//   int i = 4;
+//   int e = i + 4;
+//   e+=z;
+//   return e;
+// }
 int GoogleSignIn_Status(GoogleSignInFuture_t self) {
   // Map the Android status code onto the Unity plugin enum.
   switch (self->wrapped_->Status()) {

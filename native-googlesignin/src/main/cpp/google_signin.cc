@@ -163,18 +163,18 @@ class GoogleSignInFuture : public Future<GoogleSignIn::SignInResult> {
   }
   virtual GoogleSignIn::SignInResult *Result() const { return result_; }
   virtual bool Pending() const {
-    // if(result_ == nullptr)
-    // {
-    //   __android_log_print(ANDROID_LOG_INFO, TAG, "PendingH() - Result is null");
-    // }
+    if(result_ == nullptr)
+    {
+      __android_log_print(ANDROID_LOG_INFO, TAG, "PendingH() - Result is null");
+    }
 
-    // else
-    // {
-    //   bool res = (!result_) || result_->StatusCode ==
-    //                          GoogleSignIn::StatusCode::kStatusCodeUninitialized;
-    //    __android_log_print(ANDROID_LOG_INFO, TAG, "PendingH() - Status code %i pending:%s",
-    //                       result_->StatusCode, ((res) ? "YES":"NO"));
-    // }
+    else
+    {
+      bool res = (!result_) || result_->StatusCode ==
+                             GoogleSignIn::StatusCode::kStatusCodeUninitialized;
+       __android_log_print(ANDROID_LOG_INFO, TAG, "PendingH() - Status code %i pending:%s this gsif:%p result:%p",
+                          result_->StatusCode, ((res) ? "YES":"NO"), this, result_);
+    }
 
     return (!result_) || result_->StatusCode ==
                              GoogleSignIn::StatusCode::kStatusCodeUninitialized;
@@ -314,7 +314,7 @@ Future<GoogleSignIn::SignInResult> &GoogleSignIn::GoogleSignInImpl::SignIn() {
 
   env->CallStaticVoidMethod(helper_clazz_, signin_method_, activity_,
                             (jlong)current_result_);
-
+  __android_log_print(ANDROID_LOG_INFO, TAG, "GoogleSignIn::GoogleSignInImpl::SignIn() - Just called java to signin");
   return *current_result_;
 }
 
@@ -362,6 +362,7 @@ void GoogleSignIn::GoogleSignInImpl::Disconnect() {
 void GoogleSignIn::GoogleSignInImpl::NativeOnAuthResult(
     JNIEnv *env, jobject obj, jlong handle, jint result, jobject user) {
   GoogleSignInFuture *future = reinterpret_cast<GoogleSignInFuture *>(handle);
+  __android_log_print(ANDROID_LOG_INFO, TAG, "GoogleSignIn::GoogleSignInImpl::NativeOnAuthResult() - Callback called");
   if (future) {
     SignInResult *rc = new GoogleSignIn::SignInResult();
     rc->StatusCode = result;

@@ -32,18 +32,18 @@ namespace Google.Impl {
       GoogleSignInImpl.GoogleSignIn_DisposeFuture(SelfPtr());
       base.Dispose();
     }
-
+// Implementation of FutureAPIImpl<T> interface
     public bool Pending {
       get {
         bool resX2  = GoogleSignInImpl.GoogleSignIn_Pending(SelfPtr());
         //pointer to wrapper around future
-        UnityEngine.Debug.Log("NativeFuture::Pending()I - cs->cpp:" + resX2);
+        UnityEngine.Debug.Log("NativeFuture::Pending()S - cs->cpp:" + resX2 + " Handle:" + SelfPtr().Handle);
          UnityEngine.Debug.Log("NativeFuture::Pending() - cs->cpp(int):" + Convert.ToInt32(resX2));
          return resX2;
         //return GoogleSignInImpl.GoogleSignIn_Pending(SelfPtr());//wraps googlesignin::Future<GoogleSignIn::SignInResult> (cs -> cpp)
       }
     }
-
+// Implementation of FutureAPIImpl<T> interface
     public GoogleSignInUser Result {
       get {
         IntPtr ptr = GoogleSignInImpl.GoogleSignIn_Result(SelfPtr());
@@ -91,7 +91,7 @@ namespace Google.Impl {
         }
       }
     }
-
+// Implementation of FutureAPIImpl<T> interface
     /// <summary>
     /// Gets the status.
     /// </summary>

@@ -36,6 +36,7 @@ namespace Google.Impl {
 
     protected HandleRef SelfPtr() {
       if (selfHandleRef.Equals(nullSelf)) {
+         Debug.Log("BaseObject::SelfPtr() - INVALID SELF SELF");
         throw new InvalidOperationException(
           "Attempted to use object after it was cleaned up");
       }
