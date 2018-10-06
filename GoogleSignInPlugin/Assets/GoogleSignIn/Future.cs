@@ -72,7 +72,7 @@ namespace Google {
     internal IEnumerator WaitForResult(TaskCompletionSource<T> tcs) {
       Debug.Log("WaitForResult() - same frame??");
       yield return new WaitForSeconds(19);
-      //  Debug.Log("WaitForResult() - done waiting 19 seconds??");
+      Debug.Log("WaitForResult() - done waiting 19 seconds??");
       yield return new WaitUntil(() => !Pending);
       if (Status == GoogleSignInStatusCode.Canceled) {
         tcs.SetCanceled();

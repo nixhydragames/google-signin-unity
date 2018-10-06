@@ -152,7 +152,7 @@ void GoogleSignIn_Disconnect(GoogleSignIn_t self) {
 }
 // int DoNothing(int z);
 bool GoogleSignIn_Pending(GoogleSignInFuture_t self) {//pointer to a wrapper for a future
-    bool pendres = self->wrapped_->Pending();
+    // bool pendres = self->wrapped_->Pending();
   //  bool pendres = true;
   //  //__android_log_print(ANDROID_LOG_INFO, "native-googlesignin", "GoogleSignIn_Pending() cs->c++ self:%p wrapped:%p pend:%i raw:%p",self, &self->wrapped_, pendres, self->wrapped_.get());//self is a wrapper arround Future<signinresult>
     // void* r1 = self;
@@ -195,8 +195,8 @@ bool GoogleSignIn_Pending(GoogleSignInFuture_t self) {//pointer to a wrapper for
   //     pendres = false;
   //   }
   // }
-   return pendres;
-  // return self->wrapped_->Pending();
+  //  return pendres;
+  return self->wrapped_->Pending();
 }
 
 // int DoNothing(int z)
