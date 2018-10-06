@@ -140,8 +140,8 @@ void GoogleSignIn_Disconnect(GoogleSignIn_t self) {
   self->wrapped_->Disconnect();
 }
 
-bool GoogleSignIn_Pending(GoogleSignInFuture_t self) {
-  return self->wrapped_->Pending();
+int GoogleSignIn_Pending(GoogleSignInFuture_t self) {
+  return self->wrapped_->Pending() ? 1 : 0;
 }
 
 int GoogleSignIn_Status(GoogleSignInFuture_t self) {

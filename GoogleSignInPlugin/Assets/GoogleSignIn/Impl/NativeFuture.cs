@@ -34,7 +34,7 @@ namespace Google.Impl {
 
     public bool Pending {
       get {
-        return GoogleSignInImpl.GoogleSignIn_Pending(SelfPtr());
+        return (GoogleSignInImpl.GoogleSignIn_Pending(SelfPtr())==1) ? true : false;
       }
     }
 

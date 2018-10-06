@@ -86,7 +86,7 @@ void GoogleSignIn_Disconnect(GoogleSignIn_t self);
 // Accesses the Pending() method of the Future.  This avoids
 // having to marshal classes and structures between C and other languages
 // (i.e. C#).
-bool GoogleSignIn_Pending(GoogleSignInFuture_t self);
+int GoogleSignIn_Pending(GoogleSignInFuture_t self);
 
 // Accesses the Status() method of the Future.  This avoids
 // having to marshal classes and structures between C and other languages
